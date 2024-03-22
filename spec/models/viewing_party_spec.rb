@@ -8,7 +8,7 @@ RSpec.describe ViewingParty, type: :model do
       UserParty.create!(user_id: @user_1.id, viewing_party_id: @party.id, host: true)
       UserParty.create!(user_id: @user_2.id, viewing_party_id: @party.id, host: false)
   end
-  
+
   describe 'relationships' do
       it { should have_many :user_parties }
       it { should have_many(:users).through(:user_parties) }
@@ -18,5 +18,10 @@ RSpec.describe ViewingParty, type: :model do
     it "returns user that is hosting the party" do
       expect(@party.find_host).to eq (@user_1)
     end
+  end
+
+  describe "validations" do
+    it { should validate_presence_of :date }
+    it { should validate_presence_of :start_time }
   end
 end
